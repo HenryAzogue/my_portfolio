@@ -115,3 +115,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.Cloak {
+  width: 94%;
+  max-width: 100rem;
+  margin: auto;
+}
