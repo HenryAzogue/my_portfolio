@@ -4,9 +4,10 @@ import { createContext } from "react";
 const ddbb = {
   header: {
     menu: [
-      { id: uuidv4(), title: "Inicio",    href: "#" },
-      { id: uuidv4(), title: "Proyectos", href: "#" },
-      { id: uuidv4(), title: "About",     href: "#" },
+      { id: uuidv4(), title: "Inicio",      href: "#", match: "home" },
+      { id: uuidv4(), title: "Sobre mí",    href: "#", match: "about" },
+      { id: uuidv4(), title: "Habilidades", href: "#", match: "skills" },
+      { id: uuidv4(), title: "Proyectos",   href: "#", match: "projects" },
     ],
     rrss: [
       { id: uuidv4(), title: "linkedin",         href:'#', icono: 'linkedin' },

@@ -1,42 +1,62 @@
 import { Link } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { GlobalContext } from "../../provider/Provider"
 
 export const Header = ()=> {
+  const [ menuActive, setMenuActive ] = useState(false)
+
+  const toggleMenu = ()=>{
+    setMenuActive(!menuActive)
+  }
+
+
   return (
-    <header className="header">
-      <div className="Cloak">
-        <Logo />
-        <Nav />
+    <header className="Header">
+        <Logo title={"HNRAZOGUE:FRONTEND:DEVELOPER:"}/>
+        <div className="Header-barLeft"></div>
+        <Nav  menuActive={menuActive}/>
+        <div className="Header-barRight"></div>
         <Rrss />
-        <MenuHamburger />
-      </div>
+        <MenuHamburger toggleMenu={toggleMenu} />
     </header>
   )
 }
 
-const Logo = ()=> {
+const Logo = ({ title })=> {
+  const titleArray = title.length;
+  const deg = 360 / titleArray;
+
   return (
-    <h1 className="header__h1">
-      <Link className="h1__logo">
-        <p className="logo__img">
-          hnrazogue
-        </p>
+    <div className="Header-spinner">
+      <Link className="Header-link" to="/home">
+        <h1>
+          {
+            title.split("").map((letter, i) => (
+              <span
+                className="Header-span"
+                key={i}
+                style={ {transform: `rotate(${deg * i}deg)` }}
+              >
+                {letter}
+              </span>
+            ))
+          }
+        </h1>
       </Link>
-    </h1>
+    </div>
   )
 }
 
-const Nav = ()=> {
+const Nav = ({ menuActive })=> {
   const { header } = useContext(GlobalContext)
   const { menu } = header
-
+ 
   return (
-    <nav className="header__nav">
-      <ul className="nav__ul">
-        { menu.map(({ id, title, href })=> 
-            <li key={ id } className="nav__li">
-              <Link className="li__link" href={ href } to={ title }>
+    <nav className={`Header-nav ${ menuActive ? 'isActive': '' }`}>
+      <ul className="Header-ul">
+        { menu.map(({ id, title, href, match })=> 
+            <li key={ id } className="Header-li">
+              <Link className="Header-a" href={ href } to={ match }>
                 { title }
               </Link>
             </li>
@@ -46,15 +66,21 @@ const Nav = ()=> {
   )
 }
 
+
 const Rrss = ()=> {
   const { header } = useContext(GlobalContext)
   const { rrss } = header
   return(
-    <ul className="header__rrss">
+    <ul className="Header-ulR">
       { rrss.map( ({ id, title, href, icono })=>
-          <li key={ id } className="rrss__li">
-            <a className="li__rs" href={ href } title= { title }>
-              <Icono clase="rs-social" nameIcono={ icono }/>
+          <li key={ id } className="Header-liR">
+            <a
+              hrefLang="no-referrer" 
+              target="_blank"
+              className="Header-aR" 
+              href={ href } 
+              title= { title }>
+              <Icono claseName="Header-social" nameIcono={ icono }/>
             </a>
           </li>
       )}
@@ -62,20 +88,24 @@ const Rrss = ()=> {
   )
 }
 
-const MenuHamburger = ()=> {
+const MenuHamburger = ({ toggleMenu })=> {
   return(
-    <button className="header__btn">
-      <img className="btn__svg" src="/assets/icons/menu-hamburger.svg" alt="menu" />
+    <button 
+      className="Header-btn"
+      onClick={ toggleMenu }
+    >
+      <img className="Header-svg" src="/assets/icons/menu-hamburger.svg" alt="menu" />
     </button>
   )
 }
 
-const Icono = ({ nameIcono, clase = '' })=> {
+
+const Icono = ({ nameIcono, claseName = '' })=> {
   return(
     <>
-    { nameIcono === 'linkedin' && <svg className={ clase } xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg> }
-    { nameIcono === 'github'   && <svg className={ clase } xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> }
-    { nameIcono === 'cv'       && <svg className={ clase }  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M14 4.5V14a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5Zm-7.839 9.166v.522c0 .256-.039.47-.117.641a.861.861 0 0 1-.322.387.877.877 0 0 1-.469.126.883.883 0 0 1-.471-.126.868.868 0 0 1-.32-.386 1.55 1.55 0 0 1-.117-.642v-.522c0-.257.04-.471.117-.641a.868.868 0 0 1 .32-.387.868.868 0 0 1 .471-.129c.176 0 .332.043.469.13a.861.861 0 0 1 .322.386c.078.17.117.384.117.641Zm.803.519v-.513c0-.377-.068-.7-.205-.972a1.46 1.46 0 0 0-.589-.63c-.254-.147-.56-.22-.917-.22-.355 0-.662.073-.92.22a1.441 1.441 0 0 0-.589.627c-.136.271-.205.596-.205.975v.513c0 .375.069.7.205.973.137.271.333.48.59.627.257.144.564.216.92.216.357 0 .662-.072.916-.216.256-.147.452-.356.59-.627.136-.274.204-.598.204-.973ZM0 11.926v4h1.459c.402 0 .735-.08.999-.238a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.59-.68c-.263-.156-.598-.234-1.004-.234H0Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.141 1.141 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082H.79V12.57Zm7.422.483a1.732 1.732 0 0 0-.103.633v.495c0 .246.034.455.103.627a.834.834 0 0 0 .298.393.845.845 0 0 0 .478.131.868.868 0 0 0 .401-.088.699.699 0 0 0 .273-.248.8.8 0 0 0 .117-.364h.765v.076a1.268 1.268 0 0 1-.226.674c-.137.194-.32.345-.55.454a1.81 1.81 0 0 1-.786.164c-.36 0-.664-.072-.914-.216a1.424 1.424 0 0 1-.571-.627c-.13-.272-.194-.597-.194-.976v-.498c0-.379.066-.705.197-.978.13-.274.321-.485.571-.633.252-.149.556-.223.911-.223.219 0 .421.032.607.097.187.062.35.153.489.272a1.326 1.326 0 0 1 .466.964v.073H9.78a.85.85 0 0 0-.12-.38.7.7 0 0 0-.273-.261.802.802 0 0 0-.398-.097.814.814 0 0 0-.475.138.868.868 0 0 0-.301.398Z"/></svg> }
+    { nameIcono === 'linkedin' && <svg className={ claseName } xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg> }
+    { nameIcono === 'github'   && <svg className={ claseName } xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> }
+    { nameIcono === 'cv'       && <svg className={ claseName } xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg>}
     </>
   )
 }
