@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 :root {
-  --negro: #393939;
+  --negro: #73706c;
+  --blanco: #f2f1e9;
   --tipo-principal: Helvetica, Arial, sans-serif;
   --tipo-secundaria: Verdana;
 }
@@ -114,9 +115,4 @@ body {
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.Cloak {
-  width: 94%;
-  max-width: 100rem;
-  margin: auto;
 }

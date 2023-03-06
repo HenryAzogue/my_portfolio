@@ -1,62 +1,44 @@
-import { Link } from "react-router-dom"
-import { useContext, useState } from "react"
-import { GlobalContext } from "../../provider/Provider"
+import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../provider/Provider";
 
 export const Header = ()=> {
-  const [ menuActive, setMenuActive ] = useState(false)
+  const [ menuActive, setMenuActive ] = useState(false);
 
   const toggleMenu = ()=>{
-    setMenuActive(!menuActive)
+    setMenuActive(!menuActive);
   }
-
 
   return (
     <header className="Header">
-        <Logo title={"HNRAZOGUE:FRONTEND:DEVELOPER:"}/>
-        <div className="Header-barLeft"></div>
-        <Nav  menuActive={menuActive}/>
-        <div className="Header-barRight"></div>
-        <Rrss />
-        <MenuHamburger toggleMenu={toggleMenu} />
+      <Logo />
+      <div className="Header-colorBar"></div>
+      <Nav  menuActive={menuActive}/>
+      <div className="Header-colorBar"></div>
+      <Rrss />
+      <MenuHamburger toggleMenu={toggleMenu} />
     </header>
   )
 }
 
-const Logo = ({ title })=> {
-  const titleArray = title.length;
-  const deg = 360 / titleArray;
-
-  return (
-    <div className="Header-spinner">
-      <Link className="Header-link" to="/home">
-        <h1>
-          {
-            title.split("").map((letter, i) => (
-              <span
-                className="Header-span"
-                key={i}
-                style={ {transform: `rotate(${deg * i}deg)` }}
-              >
-                {letter}
-              </span>
-            ))
-          }
-        </h1>
-      </Link>
-    </div>
+const Logo = ()=>{
+  return(
+    <Link className="Header-logo" referrerPolicy="no-referrer" to={"/"}>
+      <h1 className="Header-h1">HENRY AZOGUE DEVELOPER</h1>
+    </Link>
   )
 }
 
 const Nav = ({ menuActive })=> {
-  const { header } = useContext(GlobalContext)
-  const { menu } = header
+  const { header } = useContext(GlobalContext);
+  const { menu } = header;
  
   return (
     <nav className={`Header-nav ${ menuActive ? 'isActive': '' }`}>
       <ul className="Header-ul">
         { menu.map(({ id, title, href, match })=> 
             <li key={ id } className="Header-li">
-              <Link className="Header-a" href={ href } to={ match }>
+              <Link className="Header-a" referrerPolicy="no-referrer" to={ match } href={href}>
                 { title }
               </Link>
             </li>
@@ -68,8 +50,8 @@ const Nav = ({ menuActive })=> {
 
 
 const Rrss = ()=> {
-  const { header } = useContext(GlobalContext)
-  const { rrss } = header
+  const { header } = useContext(GlobalContext);
+  const { rrss } = header;
   return(
     <ul className="Header-ulR">
       { rrss.map( ({ id, title, href, icono })=>

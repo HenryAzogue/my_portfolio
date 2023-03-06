@@ -1,118 +1,176 @@
 :root {
-  --color-f1: #F2F1E9 ;
-  --color-f2: #D9D7D0;
-  --color-f3: #D9923B;
-  --color-f4: #A68160;
+  --color-f1: #f2f1e9;
+  --color-f2: #d9d7d0;
+  --color-f3: #73706c;
+  --color-f4: #c69b56;
   --color-text: #403433;
+  --text-n1: Libre Caslon Text, serif;
+  --text-n2: Libre Bodoni, serif;
+  --size-nv: 18px;
 }
-/* app.jsx */
+/* app*/
 .App {
-  background-color: var(--color-f3);
+  background-color: var(--color-f1);
   color: var(--color-text);
+  font-family: var(--text-n2);
 }
 /*header*/
 .Header {
-  width: 100%;
-  height: 10vh;
-
-  border-bottom: solid 2px var(--color-text);
+  width: 100vw;
+  height: 20vh;
+  border-top: 0.1875em solid var(--color-f4);
+  color: var(--color-text);
 
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 2.5em;
+}
+.Header-logo {
+  width: 20vw;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   align-items: center;
 }
-.Header-barLeft {
-  border-left: solid 2px rgba(114, 114, 114, 0.5);
-  height: 6%;
-  position: absolute;
+.Header-h1 {
+  font-family: var(--text-n1);
+  font-size: 1.25rem;
+  font-weight:600;
+  text-align: center;
+  padding: 0.5em;
+  width: 100%;
+}
+.Header-logo:hover {
+  color: var(--color-f4);
+  transition: all ease 0.5s;
+}
+.Header-colorBar {
+  border-left: solid var(--color-f4);
+  height: 70%;
+
   top: 2%;
   bottom: 0;
   left: 25%;
   right: 0;
 }
-.Header-barRight {
-  border-right: solid 2px rgba(114, 114, 114, 0.5);
-  height: 6%;
-  position: absolute;
-  top: 2%;
-  bottom: 0;
-  left: 0;
-  right: 25%;
-}
-
-
-.Header-spinner {
-  /* background-color: pink; */
-  position: relative;
-  height: 9.375rem;
-  width:  9.375rem;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: .75rem;
-  top: 75%;
-  z-index: 1;
-}
-.Header-link {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  animation: spin 100s linear infinite;
-}
-.Header-span {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform-origin: 0 4.6875rem;
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .Header-nav {
-  z-index: 1;
-
+  font-size:var(--size-nv);
+  padding:0 0.5em;
+  width: 100%;
 }
 .Header-ul {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5em;
-}
-
-.Header-btn {
-  background-color: crimson;
-  display: none;
-  z-index: 1;
-}
-
-.Header-ulR {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  gap: 5em;
-
-  z-index: 1;
+  gap: 1.5em;
+}
+.Header-li:hover {
+  color: var(--color-f4);
+  transition: all ease 0.5s;
+}
+.Header-btn {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.Header-svg {
+  width: 3.125em;
+  height: 3.125em;
+}
+.Header-ulR {
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+}
+.Header-liR:hover {
+  color: var(--color-f4);
+  transition: all ease 0.5s;
 }
 
-/* home*/
+
+/* home */
 .Home {
-  background-color: var(--color-f2);
+  background-color: var(--color-f1);
   padding: 4em 5em;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
 }
 
-/* about.jsx */
+/* about */
 
-/* works.jsx */
+/* works */
+
+/* skills */
+
+/* mode-responsive*/
+@media screen and (min-width:0px) and (max-width: 768px) {
+  /*-header-*/
+  .Header-logo {
+    width: 20vw;
+    flex-direction: row;
+  }
+  .Header-colorBar {
+    display: none;
+  }
+  .Header-nav {
+    border-top: 1px solid var(--color-f4);
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    overflow: hidden;
+    transition: all 2s ease;
+
+    position: relative;
+  }
+  .Header-nav.isActive {
+    display:block;
+    left: 4em;
+    height: 35vh;
+    
+    opacity: 1;
+    position:relative;
+    bottom:27.25vh;
+    /* transition: all 1s ease; */
+  }
+  .Header-ul {
+    flex-direction: column;
+  }
+  .Header-li {
+    margin: 0.5em 0;
+  }
+  .Header-ulR {
+    display: none;
+  }
+  .Header-btn {
+    cursor: pointer;
+    display: block;
+  }
+  .Header-svg {
+    width: 3.125em;
+    height: 3.125em;
+  }
+  .Header-btn:hover {
+    color: var(--color-f4);
+    transition: all ease 0.5s;
+    /* width: 25%; */
+  }
+
+  /*-home-*/
+
+  /*-about-*/
+
+  /*-works-*/
+
+  /*-
+}

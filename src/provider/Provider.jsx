@@ -4,14 +4,14 @@ import { createContext } from "react";
 const ddbb = {
   header: {
     menu: [
-      { id: uuidv4(), title: "Inicio",      href: "#", match: "home" },
-      { id: uuidv4(), title: "Sobre mí",    href: "#", match: "about" },
-      { id: uuidv4(), title: "Habilidades", href: "#", match: "skills" },
-      { id: uuidv4(), title: "Proyectos",   href: "#", match: "projects" },
+      { id: uuidv4(), title: "Inicio",      href: "home", match: "/" },
+      { id: uuidv4(), title: "Sobre mí",    href: "about", match: "/about" },
+      { id: uuidv4(), title: "Habilidades", href: "skills", match: "/skills" },
+      { id: uuidv4(), title: "Proyectos",   href: "projects", match: "/projects" },
     ],
     rrss: [
-      { id: uuidv4(), title: "linkedin",         href:'#', icono: 'linkedin' },
-      { id: uuidv4(), title: "github",           href:'#', icono: 'github'   },
+      { id: uuidv4(), title: "linkedin",         href:'https://www.linkedin.com/in/HenryAzogue', icono: 'linkedin' },
+      { id: uuidv4(), title: "github",           href:'https://github.com/HenryAzogue'         , icono: 'github'   },
       { id: uuidv4(), title: "curriculum vitae", href:'#', icono: 'cv'       }
     ]
   },
