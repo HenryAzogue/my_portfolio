@@ -5,14 +5,14 @@ const ddbb = {
   header: {
     menu: [
       { id: uuidv4(), title: "Inicio",      href: "home", match: "/" },
-      { id: uuidv4(), title: "Sobre mí",    href: "about", match: "/about" },
-      { id: uuidv4(), title: "Habilidades", href: "skills", match: "/skills" },
       { id: uuidv4(), title: "Proyectos",   href: "projects", match: "/projects" },
+      { id: uuidv4(), title: "Habilidades", href: "skills", match: "/skills" },
+      { id: uuidv4(), title: "Sobre mí",    href: "about", match: "/about" },
     ],
     rrss: [
       { id: uuidv4(), title: "linkedin",         href:'https://www.linkedin.com/in/HenryAzogue', icono: 'linkedin' },
       { id: uuidv4(), title: "github",           href:'https://github.com/HenryAzogue'         , icono: 'github'   },
-      { id: uuidv4(), title: "curriculum vitae", href:'#', icono: 'cv'       }
+      { id: uuidv4(), title: "cv", href:'#'}
     ]
   },
   home: {
