@@ -1,9 +1,8 @@
 import "./App.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import Home from "./component/Main/Home";
-import About from "./component/Main/About";
-import Works from "./component/Main/Works";
-import Skills from "./component/Main/Skills";
+import Home from "./Page/Home";
+import About from "./Page/About";
+import Works from "./Page/Works";
 
 import { Header } from "./component/Header/Header";
 import { Footer } from "./component/Footer/Footer";
@@ -15,9 +14,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Works />} />
-          <Route path="/skills" element={<Skills />} />
+          <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
       </div>

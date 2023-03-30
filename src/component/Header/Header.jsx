@@ -33,13 +33,13 @@ const Nav = ({ menuActive }) => {
   return (
     <nav className={`Header-nav ${menuActive ? "isActive" : ""}`}>
       <ul className="Header-ul">
-        {menu.map(({ id, title, href, match }) => (
+        {menu.map(({ id, title, reference, match }) => (
           <li key={id} className="Header-li">
             <Link
               className="Header-link"
               referrerPolicy="no-referrer"
               to={match}
-              href={href}
+              href={reference}
             >
               {title}
             </Link>
